@@ -3,3 +3,4 @@
 * [WEB-программирование](Web)
 * [Парадигмы программирования](paradigms)
 * [Методы трансляции](translationMethods)
+* [Frontend-программирование](frontend) 

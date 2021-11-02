@@ -1,0 +1,89 @@
+body {
+  font-family: Arial, fangsong;
+}
+.all-cards {
+  display: block;
+}
+.card {
+  float: left;
+  border: 1px solid rgba(0, 0, 0, 0.17);
+  margin: 10px;
+  width: 250px;
+}
+
+.card:hover {
+  box-shadow:0 0 20px rgba(0,0,0,0.5);
+}
+
+.short-desc, .long-desc {
+  color: #6b6b6b;
+  margin-bottom: 10px;
+}
+
+.cat-name {
+  font-size: 30px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.short-desc > div:last-child {
+  margin-top: 15px;
+}
+
+.cat-image {
+  width: 250px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cat-image:hover {
+  border: #6b6b6b 4px solid;
+}
+
+.cat-name:hover {
+  color: brown;
+}
+.cat-image-container {
+  width: 250px;
+  height: 160px;
+}
+
+.description {
+  margin-left: 20px;
+  margin-bottom: 20px;
+}
+
+.icon-list {
+  width: 30px;
+  display: block;
+}
+
+.all-cards:focus-within > .card {
+  float: none;
+  width: 450px;
+}
+
+.all-cards:focus-within > .card .cat-image {
+  width: 450px;
+}
+.all-cards:focus-within > .card .cat-image-container {
+  height: 300px;
+}
+
+.all-cards:focus-within > .card .long-desc {
+  display: block;
+  width: 400px;
+}
+.all-cards:focus-within > .card .short-desc {
+  display: none;
+}
+
+.long-desc {
+  display: none;
+}
+
+
