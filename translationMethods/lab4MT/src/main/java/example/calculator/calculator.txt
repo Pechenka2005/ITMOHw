@@ -1,0 +1,47 @@
+@grammar calculator;
+
+@startState = s;
+
+@states {
+    s returns [int value] :
+        betweenSecond `int first = node0.value;` mulOrDiv[first] `int after = node1.value;` addOrSub[after] `res.value = node2.value;`;
+    addOrSub [int l] returns [int value] :
+        EPS `res.value = l;`
+        | ADD between `int r = node0.value;` addOp[l, r] `int acc = node1.value;` addOrSub[acc] `res.value = node2.value;`
+        | MINUS between `int r = node0.value;` subOp[l, r] `int acc = node1.value;` addOrSub[acc] `res.value = node2.value;`;
+    between returns [int value] :
+        betweenSecond `int first = node0.value;` mulOrDiv[first] `res.value = node1.value;`;
+    mulOrDiv [int l] returns [int value] :
+        EPS `res.value = l;`
+        | MUL betweenSecond `int r = node0.value;` mulOp[l, r] `int acc = node1.value;` mulOrDiv[acc] `res.value = node2.value;`
+        | DIV betweenSecond `int r = node0.value;` divOp[l, r] `int acc = node1.value;` mulOrDiv[acc] `res.value = node2.value;`;
+    betweenSecond returns [int value] :
+        restart `int first = node0.value;` Pow[first] `res.value = node1.value;`;
+    Pow [int calculated] returns [int value] :
+        EPS `res.value = calculated;`
+        | POW restart `int newValue = node0.value;` Pow[newValue] `int acc = node1.value;` powOp[calculated, acc] `res.value = node2.value;`;
+    restart returns [int value] :
+        NUM `res.value = Integer.parseInt(lexer.getCurrTokenStringRepresentation());`
+        | MINUS restart `res.value = -1 * node0.value;`
+        | LB s `res.value = node0.value;` RB
+        | SQR LB s `res.value = node0.value * node0.value;` RB;
+
+    addOp[int l, int r] returns [int value] : EPS `res.value = l + r;`;
+    subOp[int l, int r] returns [int value] : EPS `res.value = l - r;`;
+    mulOp[int l, int r] returns [int value] : EPS `res.value = l * r;`;
+    divOp[int l, int r] returns [int value] : EPS `res.value = l / r;`;
+    powOp[int l, int r] returns [int value] : EPS `res.value = (int) Math.pow(l, r);`;
+}
+
+@tokens {
+    ADD: "\\+";
+    MINUS: "\\-";
+    POW: "\\^";
+    SQR: "sqr";
+    MUL: "\\*";
+    DIV: "\\/";
+    LB: "\\(";
+    RB: "\\)";
+    NUM: "[1-9][0-9]*|0";
+    SPACE: "[ \n\t\r]+" -> skip;
+}

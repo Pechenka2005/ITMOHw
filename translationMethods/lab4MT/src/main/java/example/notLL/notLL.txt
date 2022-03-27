@@ -1,0 +1,13 @@
+@grammar notLL;
+
+@startState = s;
+
+@states {
+    s : EPS | LB s RB | s s ;
+}
+
+@tokens {
+    LB: "\\(";
+    RB: "\\)";
+    SPACE: "[ \t\r\n]+ -> skip";
+}
